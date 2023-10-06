@@ -1,78 +1,68 @@
+// Importing necessary React components and hooks from external libraries (drei)
 import { useLoader } from '@react-three/fiber';
 import { OrbitControls, TransformControls, PerspectiveCamera } from '@react-three/drei'
 import React, { useRef } from 'react';
 
-
-
-
+// Import quake wave model
 import Model from './QuakeWave';
 
-// Extend the button component
+// Import the custom store  
 import useStore from "./Store";
 
-
-
-
+// Define Experience component
 export default function Experience({ hasStarted }) {
     const groupRef = useRef();
 
 
-    // All Store Value Import Goes Here
+    // Access the contexts and functions from the custom store
     const view = useStore((state) => state.view)
     const year = useStore((state) => (state.year))
     const day = useStore((state) => (state.day))
     
-
-
-    // Main playing control
+    // Access the play control from store
     const isPlaying = useStore((state) => state.isPlaying);
 
 
-
-    // // const quake = quakeData[0];
-    // const quake = quakeData.find((item) => item.year == selectedYear && item.day == selectedDay);
-    // console.log(quake)
-
-
-
-    // Camera reference 
+    // create Camera reference with useRef Hook
     const cameraRef = useRef();
 
-
-
-    console.log(year);
-    console.log(day)
-
-    const moonTexture = useLoader(TextureLoader, '/assets/moonTexture.jpg')
+    // Loading textures using useLoader
+    const moonTexture = useLoader(TextureLoader, '/assets/moonTexture.jpg');
     const heightMapTexture = useLoader(TextureLoader, '/assets/height.jpg');
 
-    console.log(heightMapTexture)
-
-    console.log(hasStarted)
-
-   
-
+    // Render the Experience component
     return (
 
         <>
+            {/* PerspectiveCamera with default settings */}
             <PerspectiveCamera
                 makeDefault
                 position={[0, 0, 4]}
                 ref={cameraRef}
             />
+
+            {/* OrbitControls for camera control */}
             <OrbitControls enableZoom={true}
                 minDistance={1.2}
                 maxDistance={7}
                 enablePan={true}
                 autoRotate={false} />
 
+        {/* Group containing the 3D elements */}
         <group ref={groupRef}>
             <mesh>
+
+                {/* Ambient and directional light for the scene */}
                 <ambientLight intensity={0.2} />
                 <directionalLight />
+
+                {/* Sphere geometry for Lunar body */}
                 <sphereGeometry args={[1, 32, 32]} />
+
+                {/* MeshStandardMaterial with dynamic texture based on the 'view' state */}
                 <meshStandardMaterial map={view ? moonTexture : heightMapTexture} />
                 {
+                    /* Conditional rendering of the Model component when animation is playing */
                     isPlaying && <Model camRef={cameraRef} />
                 }
                
