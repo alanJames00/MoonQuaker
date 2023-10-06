@@ -10,22 +10,17 @@ import useStore from "./Store";
 
 export default function Model({ camRef }) {
 
-
-  // Here goes custom testing prop values:
   const props = {}
 
-  // Current Context Value Init
   const selectedYear = useStore((state) => state.year);
   const isPlaying = useStore((state) => state.isPlaying);
   const selectedDay = useStore((state) => state.day);
 
 
   const quake = quakeData.find((item) => item.year == selectedYear && item.day == selectedDay);
-  console.log(quake)
 
 
   const group = useRef();
-  //   const { quake } = props;
   const { nodes, materials, animations } = useGLTF('/assets/wave.glb');
   const { actions } = useAnimations(animations, group);
 
@@ -39,8 +34,7 @@ export default function Model({ camRef }) {
   }, []);
 
 
-
-  let r = quake.magnitude < 1 ? 1.99 : 1.97;
+  let r = quake.magnitude < 1 ? 1.99 : 1.90;
   r = r * 0.50
   const degToRad = (deg) => (deg * Math.PI) / 180.0;
 
@@ -70,6 +64,7 @@ export default function Model({ camRef }) {
       </group>
     </group>
   );
+  
 }
 
 useGLTF.preload('/assets/wave.glb');
