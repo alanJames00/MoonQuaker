@@ -34,7 +34,7 @@ export default function Model({ camRef }) {
   }, []);
 
 
-  let r = quake.magnitude < 1 ? 1.99 : 1.90;
+  let r = quake.magnitude < 1 ? 1.99 : 1.97;
   r = r * 0.50
   const degToRad = (deg) => (deg * Math.PI) / 180.0;
 
