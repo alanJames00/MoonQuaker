@@ -2,7 +2,6 @@ import React from "react";
 
 export default function QuakeInfoBar( {quake, isPlaying} ) {
 
-
     return (
         <div style={{display:'flex'}}>
         <div style={{display:'flex'}}>
