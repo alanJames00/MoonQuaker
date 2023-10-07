@@ -18,10 +18,19 @@
     "web-vitals": "^2.1.4",
     "zustand": "^4.4.3"
   },
+  
+  "jest": {
+    "moduleFileExtensions": ["js", "jsx"],
+    "transform": {
+      "^.+\\.(js|jsx)$": "babel-jest"
+    },
+    "testEnvironment": "jsdom"
+  },
+  
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
